@@ -1,0 +1,56 @@
+/* Put your CSS here */
+
+.message-items {
+  border: 1px solid #e1e1e8;
+}
+
+.message-item {
+  border-bottom: 1px solid #e1e1e8;
+}
+
+.user {
+  padding: 4px 7px 0px;
+  color: #555;
+}
+
+.content {
+  padding: 4px 7px;
+}
+
+.songs {
+  background-color: #f7f7f9;
+}
+
+.song {
+  border-top: 1px solid #e1e1e8;
+  padding: 4px 7px;
+}
+.song .artist-name {
+  float: left;
+  margin: 0 10px 0 0;
+}
+.song .track-title {
+  float: left;
+  color: #666;
+}
+.song .play-button {
+  float: right;
+}
+
+.compose-field {
+  padding: 8px 5px 15px 6px;
+}
+
+.textarea {
+  resize: none;
+  padding: 1px 5px;
+  margin: 0 0 5px;
+  height: 40px;
+  width: 381px;
+  border: 1px solid #ccc;
+  border-radius: 0;
+}
+
+.send-button {
+  float: right;
+}

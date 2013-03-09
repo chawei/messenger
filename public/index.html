@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>inbox</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <div class="container-fluid">
+  <script type="text/x-handlebars" data-template-name="application">
+  <div class="row-fluid">
+    {{ outlet }}
+    
+    <div id="player" class="span7"></div>
+  </div>
+  </script>
+  
+  <script type="text/x-handlebars" data-template-name="index">
+    hello messages
+  </script>
+  
+  <script type="text/x-handlebars" data-template-name="messages">
+  <div class="span4">
+    {{ template "messageMenu"}} 
+    {{ outlet }}
+  </div>
+  </script>
+  
+  <script type="text/x-handlebars" data-template-name="messageMenu">
+    <h2>messages</h2>
+    <ul>
+    {{#each message in controller}}
+      {{#linkTo "message" message}}{{message.id}}{{/linkTo}}
+    {{/each}}
+    </ul>
+  </script>
+  
+  <script type="text/x-handlebars" data-template-name="message">
+  <div class="message-items">    
+    {{#each item in messageItems}}
+    <div class="message-item">
+      <div class="user">{{ item.user.name }}</div>
+      <div class="content">{{ urlify item.content }}</div>
+      <div class="songs">
+      {{#each song in item.songs}}
+        <div class="song clearfix">
+          <div class="artist-name">{{ song.artistName }}</div>
+          <div class="track-title">{{ song.trackTitle }}</div>
+          <a href="#" class="play-button btn btn-mini" {{ action "playSong" song }}>
+            <i class="icon-play"></i></a>
+        </div>
+      {{/each}}
+      </div>
+    </div>
+    {{/each}}
+    
+    <div class="compose-field clearfix">
+      {{ view Ember.TextArea id="new-message-item" class="textarea" placeholder="write a reply"
+                             valueBinding="newMessageItem" action="createMessageItem" }}
+      <a href="#" class="send-button btn btn-small" {{ action "sendMessageItem" this }}>Send</a>
+    </div>
+  </div>
+  </script>
+  
+  </div>
+  
+  <script src="js/player.js"></script>
+  <script src="js/libs/jquery-1.9.1.js"></script>
+  <script src="js/libs/handlebars-1.0.0-rc.3.js"></script>
+  <script src="js/libs/ember-1.0.0-rc.1.js"></script>
+  <script src="js/libs/ember-data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/router.js"></script>
+</body>
+</html>
