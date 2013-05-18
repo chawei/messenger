@@ -42,6 +42,10 @@ App.MessageController = Ember.ObjectController.extend({
     this.get('store').commit();
     
     this.set('newMessageItem', '');
+  },
+  
+  toggleSongOnly : function() {
+    $('.message-item').children().not('.songs').toggle();
   }
 });
 

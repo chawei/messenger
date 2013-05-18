@@ -14,9 +14,9 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player;
 function onYouTubeIframeAPIReady() {
   player = new YT.Player('player', {
-    height: '390',
-    width: '640',
-    videoId: 'UElV9m9Q5Vk',
+    height: '195',
+    width: '320',
+    videoId: '',
     playerVars: {
       rel: 0
     },
@@ -27,9 +27,13 @@ function onYouTubeIframeAPIReady() {
   });
 }
 
+var currentIndex = 0;
+
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
-  event.target.playVideo();
+  var songs = App.Song.find();
+  songs.objectAt(currentIndex).playYoutubeVideoByArtistNameAndTrackTitle();
+  //event.target.playVideo();
 }
 
 // 5. The API calls this function when the player's state changes.
@@ -43,6 +47,14 @@ function onPlayerStateChange(event) {
     done = true;
   }
   */
+  if (event.data === YT.PlayerState.ENDED) {
+    var songs = App.Song.find();
+    currentIndex = currentIndex + 1;
+    if (songs.objectAt(currentIndex) === undefined) {
+      currentIndex = 0;
+    }
+    songs.objectAt(currentIndex).playYoutubeVideoByArtistNameAndTrackTitle();
+  }
 }
 function stopVideo() {
   player.stopVideo();

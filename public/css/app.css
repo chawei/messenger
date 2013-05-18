@@ -1,28 +1,54 @@
-/* Put your CSS here */
+#message-nav {
+  margin: 0 0 10px 0;
+}
+
+#message-nav li {
+  list-style: none;
+  float: left;
+  margin: 0 10px 0 0;
+}
 
 .message-items {
   border: 1px solid #e1e1e8;
+  position: relative;
+  max-height: 400px;
+  height: 400px;
+  overflow-y: scroll;
 }
 
 .message-item {
-  border-bottom: 1px solid #e1e1e8;
+  border-bottom: 1px solid #ccc;
 }
 
 .user {
-  padding: 4px 7px 0px;
+  padding: 7px 7px 0px;
   color: #555;
+}
+.user .image {
+  float: left;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.user .name {
+  float: left;
+  margin: 0 0 0 10px;
+  line-height: 30px;
 }
 
 .content {
-  padding: 4px 7px;
+  padding: 4px 7px 10px 49px;
 }
 
 .songs {
   background-color: #f7f7f9;
+  margin: 0 0 0 47px;
 }
 
 .song {
   border-top: 1px solid #e1e1e8;
+  border-left: 1px solid #e1e1e8;
   padding: 4px 7px;
 }
 .song .artist-name {
@@ -39,6 +65,7 @@
 
 .compose-field {
   padding: 8px 5px 15px 6px;
+  background-color: #e4e4e4;
 }
 
 .textarea {
@@ -53,4 +80,9 @@
 
 .send-button {
   float: right;
+}
+
+/* Player */
+#player {
+  margin: 93px 0 0 15px;
 }
