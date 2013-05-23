@@ -102,7 +102,10 @@
   <script type="text/x-handlebars" data-template-name="messageMenu">
     <ul id="message-nav" class="clearfix">
     {{#each message in controller}}
-      <li>{{#linkTo "message" message classNames=""}}{{message.id}}{{/linkTo}}</li>
+      <li>
+        {{#linkTo "message" message classNames="title"}}{{message.id}}{{/linkTo}}
+        <a class="remove-btn" href="#" {{ action "removeMessage" message }}><i class="icon-remove-circle"></i></a>
+      </li>
     {{/each}}
     </ul>
   </script>

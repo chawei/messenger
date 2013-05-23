@@ -43,6 +43,23 @@ App.SongsController = Ember.ArrayController.extend({
   },
 });
 
+App.MessagesController = Ember.ArrayController.extend({
+  removeMessage: function(message) {
+    console.log('remove message');
+    message.get('messageItems').toArray().forEach(function(m) {
+      m.get('store').commit();
+      m.get('songs').toArray().forEach(function(s) {
+        s.deleteRecord();
+        s.get('store').commit();
+      });
+      m.deleteRecord();
+    });
+    message.deleteRecord();
+    message.get('store').commit();
+    console.log('after destroy: ', message);
+  },
+});
+
 App.MessageController = Ember.ObjectController.extend({
   playSong : function(song) {
     var videoId = song.getIdFromUrl();

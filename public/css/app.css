@@ -35,7 +35,7 @@ header {
   top: 55px;
   left: -250px;
   width: 200px;
-  height: 100px;
+  min-height: 200px;
   border: 2px solid #343434;
   border-radius: 5px;
   background-color: #343434;
@@ -55,6 +55,25 @@ header {
 
 #message-nav li a.active {
   background-color: #eee;
+}
+
+#message-nav li a.title {
+  float: left;
+  width: 146px;
+}
+
+#message-nav li a.remove-btn {
+  float: right;
+  opacity: 0.2;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#message-nav li a.remove-btn:hover {
+  opacity: 0.8;
 }
 
 .message-items {
