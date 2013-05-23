@@ -1,11 +1,60 @@
+.container {
+  width: 400px;
+  position: relative;
+  border: 10px solid #343434;
+  border-radius: 5px;
+  margin: 10px auto;
+}
+
+header {
+  margin: 0;
+  padding: 10px;
+  background-color: #343434;
+}
+
+#logo-container {
+  float: left;
+}
+
+#fb-login {
+  display: block;
+}
+
+#login-container {
+  float: right;
+}
+
+#navigation {
+  padding: 10px;
+  text-align: right;
+  border-bottom: 2px solid #aaa;
+}
+
 #message-nav {
-  margin: 0 0 10px 0;
+  position: absolute;
+  top: 50px;
+  left: -250px;
+  width: 200px;
+  height: 100px;
+  border: 2px solid #343434;
+  border-radius: 5px;
+  background-color: #343434;
+  padding: 10px;
 }
 
 #message-nav li {
   list-style: none;
-  float: left;
-  margin: 0 10px 0 0;
+  margin: 0 0 2px 0;
+}
+
+#message-nav li a {
+  display: block;
+  background-color: #fff;
+  padding: 5px 10px;
+}
+
+#message-nav li a.active {
+  background-color: #eee;
 }
 
 .message-items {
@@ -13,7 +62,7 @@
   position: relative;
   max-height: 400px;
   height: 400px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .message-item {
@@ -28,8 +77,6 @@
   float: left;
   width: 30px;
   height: 30px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
 }
 .user .name {
   float: left;
@@ -50,6 +97,7 @@
   border-top: 1px solid #e1e1e8;
   border-left: 1px solid #e1e1e8;
   padding: 4px 7px;
+  min-height: 23px;
 }
 .song .artist-name {
   float: left;
@@ -82,7 +130,13 @@
   float: right;
 }
 
+#playlist {
+  position: absolute;
+  top: 50px;
+  left: 420px;
+}
+
 /* Player */
 #player {
-  margin: 93px 0 0 15px;
+  
 }
