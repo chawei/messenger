@@ -8,7 +8,7 @@
 
 header {
   margin: 0;
-  padding: 10px;
+  padding: 10px 12px 15px;
   background-color: #343434;
 }
 
@@ -32,7 +32,7 @@ header {
 
 #message-nav {
   position: absolute;
-  top: 50px;
+  top: 55px;
   left: -250px;
   width: 200px;
   height: 100px;
@@ -67,6 +67,7 @@ header {
 
 .message-item {
   border-bottom: 1px solid #ccc;
+  background-color: #f6f6f6;
 }
 
 .user {
@@ -99,17 +100,22 @@ header {
   padding: 4px 7px;
   min-height: 23px;
 }
-.song .artist-name {
-  float: left;
-  margin: 0 10px 0 0;
-}
-.song .track-title {
-  float: left;
-  color: #666;
-}
-.song .play-button {
-  float: right;
-}
+  .song .song-info {
+    float: left;
+    margin: 0 10px 0 0;
+    width: 295px;
+  }
+  .song .artist-name {
+    float: left;
+    margin: 0 10px 0 0;
+  }
+  .song .track-title {
+    float: left;
+    color: #666;
+  }
+  .song .play-button {
+    float: right;
+  }
 
 .compose-field {
   padding: 8px 5px 15px 6px;
@@ -132,9 +138,14 @@ header {
 
 #playlist {
   position: absolute;
-  top: 50px;
+  top: 55px;
   left: 420px;
 }
+  #playlist .songs {
+    margin: 0;
+    height: 250px;
+    overflow-y: auto;
+  }
 
 /* Player */
 #player {

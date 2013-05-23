@@ -26,8 +26,21 @@ Ember.Handlebars.registerBoundHelper('urlify', function(text) {
 });
 
 Ember.Handlebars.registerBoundHelper('fbImgSrc', function(facebookId) {
-  var html = '<img class="img-circle" src="http://graph.facebook.com/' + facebookId + '/picture" />';
-  return new Handlebars.SafeString(html);
+  if (facebookId !== null) {
+    var html = '<img class="img-circle" src="http://graph.facebook.com/' + facebookId + '/picture" />';
+    return new Handlebars.SafeString(html);
+  }
+});
+
+App.SongsController = Ember.ArrayController.extend({
+  playSong : function(song) {
+    var videoId = song.getIdFromUrl();
+    if ( videoId !== null) {
+      Player.loadVideoById(videoId);
+    } else {
+      song.playYoutubeVideoByArtistNameAndTrackTitle();
+    }
+  },
 });
 
 App.MessageController = Ember.ObjectController.extend({
@@ -58,6 +71,16 @@ App.MessageController = Ember.ObjectController.extend({
   
   toggleSongOnly : function() {
     $('.message-item').children().not('.songs').toggle();
+  },
+  
+  togglePlaylistView: function() {
+    console.log('toggle playlist');
+    $('#playlist').toggle();
+  },
+  
+  toggleMessageMenuView: function() {
+    console.log('toggle message menu');
+    $('#message-nav').toggle();
   }
 });
 
@@ -113,7 +136,6 @@ App.ApplicationView = Ember.View.extend({
   didInsertElement: function() {
     this.initFBLogin();
     this.renderFBLoginStatus();
-    this.addYoutubeIframeApiScript();
   },
   
   renderFBLoginStatus: function() {
@@ -150,19 +172,6 @@ App.ApplicationView = Ember.View.extend({
     
       return false;
     });
-  },
-  
-  addYoutubeIframeApiScript: function() {
-    // 2. This code loads the IFrame Player API code asynchronously.
-    var tag = document.createElement('script');
-
-    // This is a protocol-relative URL as described here:
-    //     http://paulirish.com/2010/the-protocol-relative-url/
-    // If you're testing a local page accessed via a file:/// URL, please set tag.src to
-    //     "https://www.youtube.com/iframe_api" instead.
-    tag.src = "//www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   }
 });
 
