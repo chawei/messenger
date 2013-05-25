@@ -22,4 +22,7 @@
 #player {
   margin: auto;
   display: block;
+  
+  width: 300px;
+  height: 200px;
 }
