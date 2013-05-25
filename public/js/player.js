@@ -22,14 +22,15 @@ var currentIndex = 0;
 
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
-  /*
-  App.Song.find().then(function(songs) {
-    var song = songs.objectAt(currentIndex);
-    
-  });
-  */
+
+  if (App.playlist === null) {
+    App.Song.find().then(function(songs) {
+      var song = songs.objectAt(currentIndex);
+    });
+  } else {
+    var song = App.playlist.get('songs').objectAt(0);
+  }
   
-  var song = App.playlist.get('songs').objectAt(0);
   if (song !== undefined) {
     song.playYoutubeVideoByArtistNameAndTrackTitle();
   }
