@@ -1,17 +1,9 @@
 App = Ember.Application.create({});
 
+App.currentMessageId = null;
+
 App.currentUser = null;
-/*
-App.ApplicationRoute = Ember.Route.extend({
-  setupController: function() {
-    this.controllerFor('song').set('model', App.Song.find());
-  },
-  
-  playSong : function() {
-    console.log('play');
-  }
-});
-*/
+App.playlist    = null;
 
 Ember.Handlebars.registerBoundHelper('urlify', function(text) {
   if (text === undefined || text === null) return '';
@@ -30,6 +22,12 @@ Ember.Handlebars.registerBoundHelper('fbImgSrc', function(facebookId) {
     var html = '<img class="img-circle" src="http://graph.facebook.com/' + facebookId + '/picture" />';
     return new Handlebars.SafeString(html);
   }
+});
+
+App.ApplicationController = Ember.Controller.extend({
+  updatePlaylist: function() {
+    console.log(this.get('currentPath'));
+  }.observes('currentPath')
 });
 
 App.SongsController = Ember.ArrayController.extend({
@@ -58,9 +56,15 @@ App.MessagesController = Ember.ArrayController.extend({
     message.get('store').commit();
     console.log('after destroy: ', message);
   },
+  
+  mixMessage: function(message) {
+    App.playlist.setSongs(message);
+  }
 });
 
 App.MessageController = Ember.ObjectController.extend({
+  messageId : this,
+  
   playSong : function(song) {
     var videoId = song.getIdFromUrl();
     if ( videoId !== null) {
@@ -101,6 +105,19 @@ App.MessageController = Ember.ObjectController.extend({
   }
 });
 
+App.SongsView = Ember.View.extend({
+  templateName: 'songs',
+  
+  didInsertElement: function() {
+    console.log('SongsView didInsertElement');
+  },
+  
+  afterRender: function() {
+    console.log('SongsView afterRender');
+  }
+});
+  
+
 App.MessageView = Ember.View.extend({
   templateName: 'message',
   
@@ -109,7 +126,7 @@ App.MessageView = Ember.View.extend({
       // Ember.run.next waits until the DOM has been updated :)
       Ember.run.scheduleOnce('afterRender', this, function() {
         try {
-          var container = this.$("#message-box").get(0);
+          var container = $("#message-box").get(0);
           container.scrollTop = container.scrollHeight;
         } catch (err) {
           console.log('no box');
@@ -119,10 +136,19 @@ App.MessageView = Ember.View.extend({
   }.observes("controller.content.messageItems.length"),
   
   didInsertElement: function() {
+    
+    var controller = this.get('controller');
+    var model      = controller.get('model');
+    var messageId  = model.id;
+    var message    = App.Message.find(messageId);
+    
+    console.log('MessageView didInsertElement: ', message.id);
+    
     //Ember.run.scheduleOnce('afterRender', this, 'processChildElements');
   },
   
-  processChildElements: function() {
+  processChildElements: function() {    
+    /*
     var box = $("#message-box");
     //box.scrollTop(400);
     console.log('scroll : ', box.scrollTop());
@@ -132,6 +158,7 @@ App.MessageView = Ember.View.extend({
     
     var songs = $(".song");
     console.log(songs.length);
+    */
   },
   
   MessageItemsView: Ember.CollectionView.extend({
@@ -143,9 +170,6 @@ App.MessageView = Ember.View.extend({
   })
   
 });
-
-
-  
 
 App.ApplicationView = Ember.View.extend({
   templateName: 'application',
@@ -203,7 +227,17 @@ App.Store = DS.Store.extend({
 
 App.Message = DS.Firebase.LiveModel.extend({
   messageItems: DS.hasMany('App.MessageItem'),
-  playlist: DS.belongsTo('App.Playlist')
+  songs: DS.hasMany('App.Song'),
+  playlist: DS.belongsTo('App.Playlist'),
+  
+  setSongs: function() {
+    var that = this;
+    this.get('messageItems').toArray().forEach(function(m) {
+      m.get('songs').toArray().forEach(function(s) {
+        App.playlist.get('songs').pushObject(s);
+      });
+    });
+  },
 });
 
 App.MessageItem = DS.Firebase.LiveModel.extend({
@@ -234,6 +268,10 @@ App.MessageItem = DS.Firebase.LiveModel.extend({
       
       this.get('store').commit();
     }
+  },
+  
+  didLoad: function() {
+    console.log('messageItem didLoad');
   }
 });
 
@@ -247,7 +285,39 @@ App.User = DS.Firebase.Model.extend({
 });
 
 App.Playlist = DS.Firebase.LiveModel.extend({
-  songs: DS.hasMany('App.Song')
+  user: DS.belongsTo('App.User'),
+  songs: DS.hasMany('App.Song'),
+  
+  setSongs: function(message) {
+    console.log('setSongs');
+    var that = this;
+    App.playlist.get('songs').setObjects([]);
+    
+    message.get('messageItems').toArray().forEach(function(m) {
+      console.log('messageItem: ', m);
+      m.get('songs').toArray().forEach(function(s) {
+        console.log('song: ', s);
+        App.playlist.get('songs').pushObject(s);
+      });
+    });
+    
+    /*
+    message.get('messageItems').toArray().forEach(function(m) {
+      App.MessageItem.find(m.id).then(function(item){
+        return item.get('songs');
+      }).then(function (songs) {
+        songs.toArray().forEach(function(s) {
+          console.log('song: ', s);
+          App.playlist.get('songs').pushObject(s);
+        });
+      });
+    });
+    */
+  },
+  
+  didLoad: function() {
+    console.log('playlist didLoad');
+  }
 });
 
 App.Song = DS.Firebase.LiveModel.extend({
@@ -333,5 +403,9 @@ App.Song = DS.Firebase.LiveModel.extend({
         console.log('Song created');
       });
     });
+  },
+  
+  didLoad: function() {
+    console.log('song didLoad');
   }
 });

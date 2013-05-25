@@ -1,6 +1,11 @@
 App.ApplicationRoute = Ember.Route.extend({
   setupController: function() {
-    this.controllerFor('songs').set('model', App.Song.find());
+    var that = this;
+    if (App.currentUser !== null) {
+      var playlistId = App.currentUser.id;
+      App.playlist   = App.Playlist.find(playlistId);
+      that.controllerFor('songs').set('model', App.playlist.get('songs'));
+    }
   }
 });
 
@@ -13,6 +18,12 @@ App.Router.map(function() {
 App.MessagesRoute = Ember.Route.extend({
   model: function() {
     return App.Message.find();
+  }
+});
+
+App.MessageRoute = Ember.Route.extend({  
+  model: function (params) {
+    return App.Message.find(params.message_id);
   }
 });
 

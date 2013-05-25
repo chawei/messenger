@@ -3,6 +3,7 @@ App.PlaylistView = Ember.View.extend({
   
   didInsertElement: function() {
     this.addYoutubeIframeApiScript();
+    console.log('rendered playlist');
   },
   
   toggle: function() {

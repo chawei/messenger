@@ -59,11 +59,15 @@ header {
 
 #message-nav li a.title {
   float: left;
-  width: 146px;
+  width: 110px;
+}
+
+#message-nav li .actions {
+  float: right;
 }
 
 #message-nav li a.remove-btn {
-  float: right;
+  float: left;
   opacity: 0.2;
   -webkit-transition: opacity 0.5s ease-in-out;
   -moz-transition: opacity 0.5s ease-in-out;
@@ -137,7 +141,7 @@ header {
   }
 
 .compose-field {
-  padding: 8px 5px 15px 6px;
+  padding: 8px 8px 15px 8px;
   background-color: #e4e4e4;
 }
 
@@ -146,7 +150,7 @@ header {
   padding: 1px 5px;
   margin: 0 0 5px;
   height: 40px;
-  width: 381px;
+  width: 372px;
   border: 1px solid #ccc;
   border-radius: 0;
 }
@@ -164,6 +168,13 @@ header {
     margin: 0;
     height: 250px;
     overflow-y: auto;
+    border: 1px solid #aaa;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  
+  #playlist .song {
+    border-left: none;
   }
 
 /* Player */

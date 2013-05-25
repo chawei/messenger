@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=utf-8 />
-<title>inbox</title>
+  <meta charset=utf-8 />
+  <meta name="viewport" content="width=device-width" />
+
+  <title>Mailbox for music</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/app.css">
 </head>
@@ -72,7 +74,7 @@
   <script type="text/x-handlebars" data-template-name="playlist">
   <div id="playlist">
     <div id="player"></div>
-    {{ render 'songs' }}
+    {{ render "songs" }}
   </div>
   </script>
   
@@ -94,7 +96,7 @@
   
   <script type="text/x-handlebars" data-template-name="messages">
   <div>
-    {{ template "messageMenu"}} 
+    {{ template "messageMenu" }} 
     {{ outlet }}
   </div>
   </script>
@@ -104,7 +106,10 @@
     {{#each message in controller}}
       <li>
         {{#linkTo "message" message classNames="title"}}{{message.id}}{{/linkTo}}
-        <a class="remove-btn" href="#" {{ action "removeMessage" message }}><i class="icon-remove-circle"></i></a>
+        <div class="actions clearfix">
+          <a class="remove-btn" href="#" {{ action "mixMessage" message }}><i class="icon-ok"></i></a>
+          <a class="remove-btn" href="#" {{ action "removeMessage" message }}><i class="icon-remove-circle"></i></a>
+        </div>
       </li>
     {{/each}}
     </ul>
@@ -148,10 +153,11 @@
   </script>
   
   <script type='text/javascript' src='https://cdn.firebase.com/v0/firebase.js'></script>
-  <script src="js/libs/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/jquery-1.9.0.js"></script>
   <script src="js/libs/handlebars-1.0.0-rc.3.js"></script>
-  <script src="js/libs/ember-1.0.0-rc.1.js"></script>
+  <script src="js/libs/ember-1.0.0-rc.3.js"></script>
   <script src="js/libs/ember-data.js"></script>
+  
   <script src="js/libs/firebase_adapter.js"></script>
   <script src="js/app.js"></script>
   <script src="js/player.js"></script>
