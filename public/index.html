@@ -7,6 +7,9 @@
   <title>Mailbox for music</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/mobile.css" media="only screen and (max-width: 480px)">
+  
+  
 </head>
 <body>
   <div id="fb-root"></div>
@@ -104,7 +107,7 @@
   <script type="text/x-handlebars" data-template-name="messageMenu">
     <ul id="message-nav" class="clearfix">
     {{#each message in controller}}
-      <li>
+      <li class="clearfix">
         {{#linkTo "message" message classNames="title"}}{{message.id}}{{/linkTo}}
         <div class="actions clearfix">
           <a class="remove-btn" href="#" {{ action "mixMessage" message }}><i class="icon-ok"></i></a>

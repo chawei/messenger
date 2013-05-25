@@ -1,0 +1,25 @@
+.container {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: none;
+} 
+
+#message-nav {
+  top: 100px;
+  left: 0px;
+  z-index: 100;
+  margin: 0;
+}
+
+#playlist {
+  width: 100%;
+  top: 100px;
+  left: 0px;
+  background-color: #343434;
+}
+
+#player {
+  margin: auto;
+  display: block;
+}
